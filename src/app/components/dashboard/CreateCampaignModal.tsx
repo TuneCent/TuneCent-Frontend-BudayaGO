@@ -238,7 +238,7 @@ export default function CreateCampaignModal({
       <TransactionSuccessModal
         isOpen={showSuccessModal}
         onClose={handleCloseSuccessModal}
-        transactionHash={null}
+        transactionHash={undefined}
         title="Pool Berhasil Dibuat!"
       >
         <div className="space-y-[1.111vw]">

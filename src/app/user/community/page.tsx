@@ -133,8 +133,8 @@ export default function CommunityPage() {
     membershipTiers[0]
   );
   const [userInvestments, setUserInvestments] = useState(0);
-  const [selectedPoll, setSelectedPoll] = useState<number | null>(null);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  const [, setSelectedPoll] = useState<number | null>(null);
+  const [, setSelectedOption] = useState<number | null>(null);
 
   useEffect(() => {
     if (authenticated && user?.id) {

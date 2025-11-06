@@ -235,7 +235,7 @@ export default function SubscriptionPage() {
                 Bagaimana cara berlangganan?
               </h3>
               <p className="font-jakarta text-[0.833vw] text-[var(--color-krem-lontar)]">
-                Pilih paket yang sesuai, klik tombol "Berlangganan Sekarang", dan ikuti proses pembayaran. Langganan akan aktif segera setelah pembayaran dikonfirmasi.
+                Pilih paket yang sesuai, klik tombol &quot;Berlangganan Sekarang&quot;, dan ikuti proses pembayaran. Langganan akan aktif segera setelah pembayaran dikonfirmasi.
               </p>
             </div>
             <div>

@@ -12,25 +12,25 @@ interface LeaderboardArrayProps {
 const LeaderboardMusisiArray: LeaderboardArrayProps[] = [
   {
     rank: 49,
-    artist: "Juicy Luicy",
+    artist: "Gundul Pacul",
     score: "9.812",
     isYourProfile: false,
   },
   {
     rank: 50,
-    artist: "Tenxi",
+    artist: "Rasa Sayange",
     score: "9.700",
     isYourProfile: true,
   },
   {
     rank: 51,
-    artist: "Hindia",
+    artist: "Bubuy Bulan",
     score: "9.650",
     isYourProfile: false,
   },
   {
     rank: 52,
-    artist: "Rizky Febian",
+    artist: "Burung Kakak Tua",
     score: "9.600",
     isYourProfile: false,
   },
@@ -39,25 +39,25 @@ const LeaderboardMusisiArray: LeaderboardArrayProps[] = [
 const LeaderboardArtistArray: LeaderboardArrayProps[] = [
   {
     rank: 1,
-    artist: "NIKI",
+    artist: "Gesang",
     score: "9.812",
     isTopProfile: true,
   },
   {
     rank: 2,
-    artist: "Tenxi",
+    artist: "Irma",
     score: "9.700",
     isTopProfile: false,
   },
   {
     rank: 3,
-    artist: "Hindia",
+    artist: "Nadhira Rafa",
     score: "9.650",
     isTopProfile: false,
   },
   {
     rank: 4,
-    artist: "Rizky Febian",
+    artist: "Daffa",
     score: "9.600",
     isTopProfile: false,
   },

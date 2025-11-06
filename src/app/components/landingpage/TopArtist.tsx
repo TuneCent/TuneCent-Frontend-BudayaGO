@@ -15,42 +15,42 @@ const DummyArtist: ArtistProps[] = [
   {
     artistId: 1,
     artistProfileIcon: "",
-    artistName: "Tenxi",
+    artistName: "Gesang",
     artistDesc: "Artist, Creator",
   },
   {
     artistId: 2,
     artistProfileIcon: "",
-    artistName: "Niki",
+    artistName: "Nadhira Rafa",
     artistDesc: "Artist, Creator",
   },
   {
     artistId: 3,
     artistProfileIcon: "",
-    artistName: "Sheila On 7",
+    artistName: "Ifan Su'ady",
     artistDesc: "Artist, Creator",
   },
   {
     artistId: 4,
     artistProfileIcon: "",
-    artistName: "For Revenge",
+    artistName: "Irma",
     artistDesc: "Artist, Creator",
   },
   {
     artistId: 5,
     artistProfileIcon: "",
-    artistName: "Hindia",
+    artistName: "Daffa",
     artistDesc: "Artist, Creator",
   },
 ];
 
 // Array of real musician images from public sources
 const musicianImages = [
-  "https://i.scdn.co/image/ab6761670000ecd4f9b12d75b1acc87fda216bbf", // Artist 1
-  "https://i.scdn.co/image/ab67616d000048517cd329ea4a204a8a47caf3d5", // Artist 2
-  "https://i.scdn.co/image/ab676161000051742017fda314b1745c3e96e0d5", // Artist 3
-  "https://i.scdn.co/image/ab67616d00001e0246f02ffc0922f939ed0fd53f", // Artist 4
-  "https://i.scdn.co/image/ab67616d00001e02d58121433ea3e6c4822ac494", // Artist 5
+  "https://i.scdn.co/image/ab67616d00001e02a03827c41b0c4dcc1305db5c", // Artist 1
+  "https://i.scdn.co/image/ab67616d00001e023f5115bb981ee2800aef31dd", // Artist 2
+  "https://i.scdn.co/image/ab67616d00001e02741fec8b09ab1fb2568c00fc", // Artist 3
+  "https://i.scdn.co/image/ab67616d00001e0220413ecbfd68590bb77b2cf6", // Artist 4
+  "https://i.scdn.co/image/ab67616d00001e029addd693c9e619b6f9a98b3a", // Artist 5
 ];
 
 const TopArtist = () => {

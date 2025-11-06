@@ -348,7 +348,7 @@ export default function CreateUploadForm() {
       <TransactionSuccessModal
         isOpen={showSuccessModal}
         onClose={handleCloseModal}
-        transactionHash={null}
+        transactionHash={undefined}
         title="Musik Berhasil Dibuat!"
       >
         <div className="space-y-[1.111vw]">

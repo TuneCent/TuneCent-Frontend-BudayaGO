@@ -34,58 +34,58 @@ interface MusicProps {
 const DummyMusic: MusicProps[] = [
   {
     musicId: 1,
-    musicTitle: "Mejikuhibiniu",
+    musicTitle: "Bengawan Solo",
     musicCloseHour: 48,
-    musicArtist: "Tenxi",
+    musicArtist: "Gesang Martohartono",
     musicOnClick: () => {},
-    musicUrl: "/assets/songs/mejikuhibiniu.mp3",
+    musicUrl: "/assets/songs/bengawan-solo.mp3",
     coverImageUrl:
-      "https://i.scdn.co/image/ab67616d00001e024d265eb3c717ab45470fdc8c",
-    genre: "Indie Pop",
+      "https://i.scdn.co/image/ab67616d0000485185148e590c8f173ca04bfc7f",
+    genre: "Keroncong",
   },
   {
     musicId: 2,
-    musicTitle: "Pikiran yang matang",
+    musicTitle: "Burung Kakak Tua",
     musicCloseHour: 12,
-    musicArtist: "Perunggu",
+    musicArtist: "Traditional",
     musicOnClick: () => {},
-    musicUrl: "/assets/songs/pikiran-yang-matang.mp3",
+    musicUrl: "/assets/songs/burung-kakak-tua.mp3",
     coverImageUrl:
-      "https://i.scdn.co/image/ab67616d00001e0292aaadd0be503d89c082ecbb",
-    genre: "Alternative Rock",
+      "https://i.scdn.co/image/ab67616d000048517efee05b1c9fe304c1a68ee8",
+    genre: "Lagu Daerah",
   },
   {
     musicId: 3,
-    musicTitle: "Alamak",
+    musicTitle: "Bubuy Bulan",
     musicCloseHour: 24,
-    musicArtist: "Rizky Febian, Adrian Khalif",
+    musicArtist: "Traditional Sunda",
     musicOnClick: () => {},
-    musicUrl: "/assets/songs/alamak.mp3",
+    musicUrl: "/assets/songs/bubuy-bulan.mp3",
     coverImageUrl:
-      "https://i.scdn.co/image/ab67616d00001e0201b9750a33d771645d7f043a",
-    genre: "Pop",
+      "https://i.scdn.co/image/ab67616d000048517ebfa3047135a0443d2cab92",
+    genre: "Lagu Sunda",
   },
   {
     musicId: 4,
-    musicTitle: "kids",
+    musicTitle: "Rasa Sayange",
     musicCloseHour: 48,
-    musicArtist: "Hindia",
+    musicArtist: "Traditional Maluku",
     musicOnClick: () => {},
-    musicUrl: "/assets/songs/kids-hindia.mp3",
+    musicUrl: "/assets/songs/rasa-sayange.mp3",
     coverImageUrl:
-      "https://i.scdn.co/image/ab67616d00001e0205898628baab6ef07a0a4d03",
-    genre: "Indie",
+      "https://i.scdn.co/image/ab67616d00004851ad8efcf9f4734a20d91c94ab",
+    genre: "Lagu Maluku",
   },
   {
     musicId: 5,
-    musicTitle: "Tabola Bale",
+    musicTitle: "Gundul-Gundul Pacul",
     musicCloseHour: 18,
-    musicArtist: "Silet Open Up, Jacson Zeran, Juan Reza, Diva Aurel",
+    musicArtist: "Traditional Jawa",
     musicOnClick: () => {},
-    musicUrl: "/assets/songs/tabola-bale.mp3",
+    musicUrl: "/assets/songs/gundul-pacul.mp3",
     coverImageUrl:
-      "https://i.scdn.co/image/ab67616d00001e0210df7b8e9b3ed2588888a8ae",
-    genre: "Hip Hop",
+      "https://i.scdn.co/image/ab67616d00004851516d2782a59e70f9fffa62aa",
+    genre: "Lagu Jawa",
   },
 ];
 
@@ -325,15 +325,6 @@ const MusicPool = ({
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
     return `${m}:${s < 10 ? "0" : ""}${s}`;
-  };
-
-  // Format closing hours to display
-  const formatCloseTime = (hours: number) => {
-    if (hours >= 24) {
-      const days = hours / 24;
-      return `${days} hari`;
-    }
-    return `${hours} jam`;
   };
 
   const handleCreateCampaign = (music: MusicProps) => {
