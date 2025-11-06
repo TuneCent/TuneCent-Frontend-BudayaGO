@@ -1,5 +1,8 @@
 "use client";
+import { useState, useEffect } from "react";
+import { usePrivy } from "@privy-io/react-auth";
 import NusantaraIcon from "../common/NusantaraIcon";
+import { getLocalMusic, getMusicPlayCount } from "@/app/utils/localStorage";
 
 interface LeaderboardArrayProps {
   rank: number;
@@ -95,6 +98,113 @@ interface LeaderboardProps {
 }
 
 const Leaderboard = ({ category = "Artist" }: LeaderboardProps) => {
+  const { authenticated, user } = usePrivy();
+  const [leaderboardData, setLeaderboardData] = useState<LeaderboardArrayProps[]>([]);
+
+  useEffect(() => {
+    const loadLeaderboard = () => {
+      try {
+        const allMusic = getLocalMusic();
+
+        if (category === "Music") {
+          // Top Music by play count
+          const musicWithPlays = allMusic.map((music) => ({
+            id: music.id,
+            title: music.title,
+            artist: music.artist,
+            playCount: getMusicPlayCount(music.id),
+          }));
+
+          // Sort by play count and take top 4
+          const topMusic = musicWithPlays
+            .sort((a, b) => b.playCount - a.playCount)
+            .slice(0, 4)
+            .map((music, index) => ({
+              rank: index + 1,
+              artist: music.title,
+              score: music.playCount.toString(),
+              isTopProfile: index === 0,
+            }));
+
+          setLeaderboardData(topMusic);
+        } else if (category === "Artist") {
+          // Top Artists by total play count
+          const artistPlayCounts = new Map<string, number>();
+
+          allMusic.forEach((music) => {
+            const playCount = getMusicPlayCount(music.id);
+            const currentCount = artistPlayCounts.get(music.artist) || 0;
+            artistPlayCounts.set(music.artist, currentCount + playCount);
+          });
+
+          // Convert to array and sort
+          const topArtists = Array.from(artistPlayCounts.entries())
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 4)
+            .map((entry, index) => ({
+              rank: index + 1,
+              artist: entry[0],
+              score: entry[1].toString(),
+              isTopProfile: index === 0,
+            }));
+
+          setLeaderboardData(topArtists);
+        } else if (category === "Musician") {
+          // Top Musicians (creators) by total works
+          const creatorWorkCounts = new Map<string, { count: number; playTotal: number }>();
+
+          allMusic.forEach((music) => {
+            const playCount = getMusicPlayCount(music.id);
+            const current = creatorWorkCounts.get(music.creatorAddress) || {
+              count: 0,
+              playTotal: 0,
+            };
+            creatorWorkCounts.set(music.creatorAddress, {
+              count: current.count + 1,
+              playTotal: current.playTotal + playCount,
+            });
+          });
+
+          // Convert to array and sort by play total
+          const topCreators = Array.from(creatorWorkCounts.entries())
+            .sort((a, b) => b[1].playTotal - a[1].playTotal)
+            .slice(0, 4)
+            .map((entry, index) => ({
+              rank: index + 1,
+              artist: `Creator ${entry[0].slice(0, 8)}...`, // Show truncated ID
+              score: entry[1].playTotal.toString(),
+              isYourProfile: authenticated && user?.id === entry[0],
+            }));
+
+          setLeaderboardData(topCreators);
+        }
+
+        // If no data, use fallback dummy data
+        if (allMusic.length === 0) {
+          if (category === "Artist") {
+            setLeaderboardData(LeaderboardArtistArray);
+          } else if (category === "Music") {
+            setLeaderboardData(LeaderboardMusicArray);
+          } else {
+            setLeaderboardData(LeaderboardMusisiArray);
+          }
+        }
+      } catch (error) {
+        console.error("Error loading leaderboard:", error);
+        // Use fallback data on error
+        if (category === "Artist") {
+          setLeaderboardData(LeaderboardArtistArray);
+        } else if (category === "Music") {
+          setLeaderboardData(LeaderboardMusicArray);
+        } else {
+          setLeaderboardData(LeaderboardMusisiArray);
+        }
+      }
+    };
+
+    loadLeaderboard();
+  }, [category, authenticated, user]);
+
   const getCategoryIndonesian = () => {
     if (category === "Artist") return "Artis";
     if (category === "Music") return "Musik";
@@ -125,7 +235,7 @@ const Leaderboard = ({ category = "Artist" }: LeaderboardProps) => {
       </div>
       {category === "Musician" ? (
         <div className="flex flex-col w-full aspect-[481/180] p-[0.444vw] gap-[0.556vw] relative z-[1]">
-          {LeaderboardMusisiArray.map((leaderboardKey) => (
+          {leaderboardData.map((leaderboardKey) => (
             <div
               key={leaderboardKey.rank}
               className="w-full flex flex-row justify-between p-[0.222vw]"
@@ -167,7 +277,7 @@ const Leaderboard = ({ category = "Artist" }: LeaderboardProps) => {
         </div>
       ) : category === "Artist" ? (
         <div className="flex flex-col w-full aspect-[481/180] p-[0.444vw] gap-[0.556vw] relative z-[1]">
-          {LeaderboardArtistArray.map((leaderboardKey) => (
+          {leaderboardData.map((leaderboardKey) => (
             <div
               key={leaderboardKey.rank}
               className="w-full flex flex-row justify-between p-[0.222vw]"
@@ -209,7 +319,7 @@ const Leaderboard = ({ category = "Artist" }: LeaderboardProps) => {
         </div>
       ) : (
         <div className="flex flex-col w-full aspect-[481/180] p-[0.444vw] gap-[0.556vw] relative z-[1]">
-          {LeaderboardMusicArray.map((leaderboardKey) => (
+          {leaderboardData.map((leaderboardKey) => (
             <div
               key={leaderboardKey.rank}
               className="w-full flex flex-row justify-between p-[0.222vw]"

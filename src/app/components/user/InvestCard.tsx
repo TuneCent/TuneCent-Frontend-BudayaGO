@@ -5,7 +5,7 @@ import MusicPoolCard from "../dashboard/MusicPoolCard";
 import { IoPeopleSharp } from "react-icons/io5";
 import { FaHourglassEnd } from "react-icons/fa";
 import { usePrivy } from '@privy-io/react-auth';
-import { saveInvestment, generateId } from "@/app/utils/localStorage";
+import { saveInvestment, generateId, updateUserProgress } from "@/app/utils/localStorage";
 import TransactionSuccessModal from "@/app/components/common/TransactionSuccessModal";
 
 export interface InvestCardProps {
@@ -99,6 +99,9 @@ const InvestCard = ({
 
       // Save investment - this will automatically update the campaign
       saveInvestment(investment);
+
+      // Update user progress (level up system)
+      updateUserProgress(user.id, "User");
 
       // Save investment data for success modal
       setInvestmentData({
