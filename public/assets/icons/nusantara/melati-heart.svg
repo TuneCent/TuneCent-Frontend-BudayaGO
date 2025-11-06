@@ -1,0 +1,28 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Melati (jasmine) flower inspired heart/like icon -->
+  <defs>
+    <radialGradient id="melatiGradient">
+      <stop offset="0%" style="stop-color:#FFFEF7"/>
+      <stop offset="70%" style="stop-color:#F5E6D3"/>
+      <stop offset="100%" style="stop-color:#D4AF37"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Heart shape with melati petals -->
+  <path d="M 12 21 C 12 21, 4 14, 4 9 C 4 6, 6 4, 8 4 C 10 4, 11 5, 12 7 C 13 5, 14 4, 16 4 C 18 4, 20 6, 20 9 C 20 14, 12 21, 12 21 Z"
+        fill="#DC1F26" stroke="#DC1F26" stroke-width="1"/>
+
+  <!-- Melati flower in center -->
+  <g transform="translate(12, 11)">
+    <!-- Petals (5 petals like melati) -->
+    <ellipse cx="0" cy="-3" rx="1.5" ry="2.5" fill="url(#melatiGradient)" stroke="#D4AF37" stroke-width="0.3"/>
+    <ellipse cx="2.8" cy="-1" rx="1.5" ry="2.5" fill="url(#melatiGradient)" stroke="#D4AF37" stroke-width="0.3" transform="rotate(72 12 11)"/>
+    <ellipse cx="1.7" cy="2.5" rx="1.5" ry="2.5" fill="url(#melatiGradient)" stroke="#D4AF37" stroke-width="0.3" transform="rotate(144 12 11)"/>
+    <ellipse cx="-1.7" cy="2.5" rx="1.5" ry="2.5" fill="url(#melatiGradient)" stroke="#D4AF37" stroke-width="0.3" transform="rotate(216 12 11)"/>
+    <ellipse cx="-2.8" cy="-1" rx="1.5" ry="2.5" fill="url(#melatiGradient)" stroke="#D4AF37" stroke-width="0.3" transform="rotate(288 12 11)"/>
+
+    <!-- Center -->
+    <circle cx="0" cy="0" r="1" fill="#D4AF37"/>
+    <circle cx="0" cy="0" r="0.4" fill="#2D5016"/>
+  </g>
+</svg>

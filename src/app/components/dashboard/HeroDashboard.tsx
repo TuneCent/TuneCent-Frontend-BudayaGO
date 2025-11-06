@@ -42,9 +42,9 @@ const HeroDashboard = () => {
     <section className="flex flex-col gap-[2.222vw] w-[75vw] ">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col">
-          <p className="text-[2.222vw] font-bold text-white">Hi {getUserName()}!</p>
-          <p className="text-[1.389vw] text-white">
-            Look at your update and progress portfolio
+          <p className="text-[2.222vw] font-bold text-[var(--color-emas-nusantara)] font-jakarta">Hai {getUserName()}!</p>
+          <p className="text-[1.389vw] text-[var(--color-krem-lontar)] font-jakarta">
+            Lihat pembaruan dan progress portofolio Anda
           </p>
         </div>
         <div className="flex flex-row gap-[1.111vw]">
@@ -52,18 +52,18 @@ const HeroDashboard = () => {
             onClick={() => {
               router.push("/musician/create");
             }}
-            className="w-fit aspect-[110/40] flex flex-row justify-center items-center gap-[0.556vw] bg-purple-base rounded-[1.042vw] text-white p-[0.889vw]"
+            className="btn-primary-nusantara w-fit aspect-[110/40] flex flex-row justify-center items-center gap-[0.556vw] rounded-[1.042vw] text-white p-[0.889vw] shadow-wayang"
           >
             <AddIcon sx={{ color: "#FFFFFF" }} />
-            <p className="text-white font-medium text-[0.972vw] text-center">
-              Upload
+            <p className="text-white font-medium text-[0.972vw] text-center font-jakarta">
+              Unggah
             </p>
           </button>
           <button
             onClick={() => {
               router.push("/musician/music");
             }}
-            className="w-fit aspect-[231/40] flex flex-row justify-center items-center gap-[0.556vw] bg-purple-base rounded-[1.042vw] text-white p-[0.889vw]"
+            className="btn-secondary-nusantara w-fit aspect-[231/40] flex flex-row justify-center items-center gap-[0.556vw] rounded-[1.042vw] text-white p-[0.889vw] shadow-wayang"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -91,8 +91,8 @@ const HeroDashboard = () => {
         <TotalDana />
         <div className="flex flex-col gap-[0.667vw]">
           <div className="flex flex-row justify-between items-center">
-            <p className="text-[1.389vw] text-white font-bold">Transaction</p>
-            <p className="text-[0.972vw] text-white-darker font-regular">
+            <p className="text-[1.389vw] text-[var(--color-emas-nusantara)] font-bold font-jakarta">Transaksi</p>
+            <p className="text-[0.972vw] text-[var(--color-krem-lontar)]/70 font-regular font-jakarta hover:text-[var(--color-emas-nusantara)] cursor-pointer transition-colors">
               Lihat Riwayat Payout
             </p>
           </div>

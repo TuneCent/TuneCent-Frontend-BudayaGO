@@ -7,8 +7,8 @@ const UserHomePage = () => {
   return (
     <section className="flex flex-col w-[75vw] gap-[2.222vw]">
       <PromotionalBanner />
-      <MusicPool title="Made For You" />
-      <MusicPool title="Jump Back In" />
+      <MusicPool title="Dibuat Untuk Anda" />
+      <MusicPool title="Lanjutkan Mendengarkan" />
       <TopArtist />
       <div className="w-full flex flex-row gap-[1.111vw]">
         <Leaderboard category="Artist" />

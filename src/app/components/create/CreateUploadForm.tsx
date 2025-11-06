@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useAccount } from "wagmi";
 import { useMusicRegistry } from "@/app/hooks/useMusicRegistry";
 import TransactionSuccessModal from "@/app/components/common/TransactionSuccessModal";
+import { saveMusic, generateId } from "@/app/utils/localStorage";
 
 export default function CreateUploadForm() {
   const { address, isConnected } = useAccount();
@@ -72,7 +73,7 @@ export default function CreateUploadForm() {
       setAudioFile(file);
       setAudioUrl(URL.createObjectURL(file)); // buat URL sementara untuk preview
     } else {
-      alert("Please upload a valid audio file (MP3/WAV).");
+      alert("Mohon unggah file audio yang valid (MP3/WAV).");
     }
   };
 
@@ -86,12 +87,12 @@ export default function CreateUploadForm() {
   const handleCreateKarya = async () => {
     // Validation
     if (!isConnected) {
-      alert("Please connect your wallet first");
+      alert("Mohon hubungkan dompet Anda terlebih dahulu");
       return;
     }
 
     if (!title || !artist || !audioFile) {
-      alert("Please fill in all required fields (Title, Artist, and Audio File)");
+      alert("Mohon isi semua kolom yang diperlukan (Judul, Artis, dan File Audio)");
       return;
     }
 
@@ -121,7 +122,7 @@ export default function CreateUploadForm() {
       console.error("Error creating music:", error);
       // Only show error if user didn't reject in wallet
       if (error && typeof error === 'object' && 'code' in error && error.code !== 4001) {
-        alert("Failed to register music. Please try again.");
+        alert("Gagal mendaftarkan musik. Mohon coba lagi.");
       }
       setIsUploading(false);
     }
@@ -129,7 +130,25 @@ export default function CreateUploadForm() {
 
   // Watch for transaction hash - shows modal 3 seconds after user signs in wallet
   useEffect(() => {
-    if (transactionHash && successData) {
+    if (transactionHash && successData && address) {
+      // Save to localStorage
+      const musicData = {
+        id: generateId(),
+        title: successData.title,
+        artist: successData.artist,
+        genre: successData.genre,
+        description: description,
+        duration: duration ? parseInt(duration.replace(':', '')) : 180, // Convert MM:SS to seconds or default
+        coverImageUrl: successData.bannerUrl || '/assets/default-cover.png',
+        audioFileUrl: successData.audioUrl,
+        creatorAddress: address,
+        txHash: transactionHash,
+        createdAt: new Date().toISOString(),
+      };
+
+      saveMusic(musicData);
+      console.log('Music saved to localStorage:', musicData);
+
       const timer = setTimeout(() => {
         setShowSuccessModal(true);
         setIsUploading(false);
@@ -137,7 +156,7 @@ export default function CreateUploadForm() {
 
       return () => clearTimeout(timer);
     }
-  }, [transactionHash, successData]);
+  }, [transactionHash, successData, address, description, duration]);
 
   // Show error message
   useEffect(() => {
@@ -165,13 +184,13 @@ export default function CreateUploadForm() {
     <div className="w-full flex flex-col items-center gap-[2.222vw]">
       <div className="w-full grid grid-rows-3 grid-cols-2 gap-[1.667vw]">
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">
-            Smart Contract Address
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+            Alamat Smart Contract
           </p>
           <div className="flex flex-col gap-[0.444vw]">
-            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-white rounded-[0.556vw] bg-black p-[0.778vw]">
+            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw]">
               <input
-                className="w-[25vw] text-[#D3D3D2] font-jakarta text-[1.111vw] border-0 outline-0"
+                className="w-[25vw] text-[var(--color-krem-lontar)] bg-transparent font-jakarta text-[1.111vw] border-0 outline-0"
                 type="text"
                 value={creatorAddress}
                 placeholder="0xxxx"
@@ -181,67 +200,67 @@ export default function CreateUploadForm() {
           </div>
         </div>
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">Title</p>
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">Judul</p>
           <div className="flex flex-col gap-[0.444vw]">
-            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-white rounded-[0.556vw] bg-black p-[0.778vw]">
+            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw]">
               <input
-                className="w-[25vw] text-[#D3D3D2] font-jakarta text-[1.111vw] border-0 outline-0"
+                className="w-[25vw] text-[var(--color-krem-lontar)] bg-transparent font-jakarta text-[1.111vw] border-0 outline-0"
                 type="text"
                 value={title}
-                placeholder="Long Live"
+                placeholder="Contoh: Rayuan Pulau Kelapa"
                 onChange={handleTitle}
               />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">Artist</p>
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">Artis</p>
           <div className="flex flex-col gap-[0.444vw]">
-            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-white rounded-[0.556vw] bg-black p-[0.778vw]">
+            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw]">
               <input
-                className="w-[25vw] text-[#D3D3D2] font-jakarta text-[1.111vw] border-0 outline-0"
+                className="w-[25vw] text-[var(--color-krem-lontar)] bg-transparent font-jakarta text-[1.111vw] border-0 outline-0"
                 type="text"
                 value={artist}
-                placeholder="TENXI"
+                placeholder="Nama Artis"
                 onChange={handleArtist}
               />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">Genre</p>
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">Genre</p>
           <div className="flex flex-col gap-[0.444vw]">
-            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-white rounded-[0.556vw] bg-black p-[0.778vw]">
+            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw]">
               <input
-                className="w-[25vw] text-[#D3D3D2] font-jakarta text-[1.111vw] border-0 outline-0"
+                className="w-[25vw] text-[var(--color-krem-lontar)] bg-transparent font-jakarta text-[1.111vw] border-0 outline-0"
                 type="text"
                 value={genre}
-                placeholder="RnB"
+                placeholder="Pop, Dangdut, Rock, dll"
                 onChange={handleGenre}
               />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">Description</p>
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">Deskripsi</p>
           <div className="flex flex-col gap-[0.444vw]">
-            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-white rounded-[0.556vw] bg-black p-[0.778vw]">
+            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw]">
               <input
-                className="w-[25vw] text-[#D3D3D2] font-jakarta text-[1.111vw] border-0 outline-0"
+                className="w-[25vw] text-[var(--color-krem-lontar)] bg-transparent font-jakarta text-[1.111vw] border-0 outline-0"
                 type="text"
                 value={description}
-                placeholder="Input..."
+                placeholder="Ceritakan tentang karya Anda..."
                 onChange={handleDescription}
               />
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">Duration</p>
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">Durasi</p>
           <div className="flex flex-col gap-[0.444vw]">
-            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-white rounded-[0.556vw] bg-black p-[0.778vw]">
+            <div className="flex flex-row w-[37.5vw] border-[0.056vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw]">
               <input
-                className="w-[25vw] text-[#D3D3D2] font-jakarta text-[1.111vw] border-0 outline-0"
+                className="w-[25vw] text-[var(--color-krem-lontar)] bg-transparent font-jakarta text-[1.111vw] border-0 outline-0"
                 type="text"
                 value={duration}
                 placeholder="Format (MM:SS)"
@@ -252,14 +271,14 @@ export default function CreateUploadForm() {
         </div>
         {/* 🎧 Upload Song */}
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">
-            Upload Your Song
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+            Unggah Lagu Anda
           </p>
           <div className="flex flex-col gap-[0.556vw]">
             {/* Input file */}
-            <label className="cursor-pointer flex flex-row items-center justify-between w-[37.5vw] border-[0.069vw] border-white rounded-[0.556vw] bg-black p-[0.778vw] hover:bg-neutral-900 transition-all">
-              <span className="text-[#D3D3D2] font-jakarta text-[1.111vw]">
-                {audioFile ? audioFile.name : "Choose Audio File (.mp3, .wav)"}
+            <label className="cursor-pointer flex flex-row items-center justify-between w-[37.5vw] border-[0.069vw] border-[var(--color-coklat-jati)] rounded-[0.556vw] bg-black p-[0.778vw] hover:bg-[var(--color-coklat-jati)]/10 transition-all">
+              <span className="text-[var(--color-krem-lontar)] font-jakarta text-[1.111vw]">
+                {audioFile ? audioFile.name : "Pilih File Audio (.mp3, .wav)"}
               </span>
               <input
                 type="file"
@@ -281,15 +300,15 @@ export default function CreateUploadForm() {
         </div>
         {/* Upload Banner */}
         <div className="flex flex-col gap-[0.444vw]">
-          <p className="text-white text-[0.972vw] font-medium">
-            Upload Music Banner
+          <p className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+            Unggah Banner Musik
           </p>
           <div className="flex flex-col gap-[0.556vw]">
             <input
               type="file"
               accept="image/*"
               onChange={handleBannerUpload}
-              className="cursor-pointer w-[37.5vw] text-[#D3D3D2] font-jakarta text-[0.972vw] border-[0.069vw] border-white p-[0.778vw] rounded-[0.556vw]"
+              className="cursor-pointer w-[37.5vw] text-[var(--color-krem-lontar)] font-jakarta text-[0.972vw] border-[0.069vw] border-[var(--color-coklat-jati)] p-[0.778vw] rounded-[0.556vw] bg-black"
             />
             {bannerURL && (
               <div className="relative w-[37.5vw] h-[15vw] mt-[0.5vw]">
@@ -308,22 +327,22 @@ export default function CreateUploadForm() {
       <button
         onClick={handleCreateKarya}
         disabled={isRegistering || isConfirming || isUploading || !isConnected}
-        className="cursor-pointer w-[37.5vw] flex flex-row aspect-[408/36] justify-center items-center rounded-[0.556vw] bg-purple-base disabled:opacity-50 disabled:cursor-not-allowed"
+        className="btn-primary-nusantara cursor-pointer w-[37.5vw] flex flex-row aspect-[408/36] justify-center items-center rounded-[0.556vw] disabled:opacity-50 disabled:cursor-not-allowed shadow-wayang"
       >
-        <p className="text-[0.972vw] text-white font-jakarta text-white-lighter">
+        <p className="text-[0.972vw] text-white font-jakarta font-semibold">
           {isUploading || isRegistering
-            ? "Uploading..."
+            ? "Mengunggah..."
             : isConfirming
-            ? "Confirming..."
+            ? "Mengkonfirmasi..."
             : !isConnected
-            ? "Connect Wallet"
-            : "Create"}
+            ? "Hubungkan Dompet"
+            : "Buat Karya"}
         </p>
       </button>
 
       {transactionHash && (
-        <p className="text-white text-[0.833vw]">
-          Transaction Hash: {transactionHash}
+        <p className="text-[var(--color-emas-nusantara)] text-[0.833vw] font-jakarta">
+          Hash Transaksi: {transactionHash}
         </p>
       )}
 
@@ -331,24 +350,24 @@ export default function CreateUploadForm() {
         isOpen={showSuccessModal}
         onClose={handleCloseModal}
         transactionHash={transactionHash}
-        title="Music Created Successfully!"
+        title="Musik Berhasil Dibuat!"
       >
         <div className="space-y-[1.111vw]">
-          <div className="bg-black border border-white-darker rounded-[0.556vw] p-[1.111vw]">
-            <h3 className="font-semibold font-jakarta text-white text-[1.111vw] mb-[0.833vw]">Music Details</h3>
+          <div className="bg-black border border-[var(--color-coklat-jati)] rounded-[0.556vw] p-[1.111vw]">
+            <h3 className="font-semibold font-jakarta text-[var(--color-emas-nusantara)] text-[1.111vw] mb-[0.833vw]">Detail Musik</h3>
             <div className="space-y-[0.556vw]">
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Title:</span>
-                <span className="font-medium text-white text-[0.833vw] font-jakarta">{successData?.title}</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Judul:</span>
+                <span className="font-medium text-[var(--color-krem-lontar)] text-[0.833vw] font-jakarta">{successData?.title}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Artist:</span>
-                <span className="font-medium text-white text-[0.833vw] font-jakarta">{successData?.artist}</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Artis:</span>
+                <span className="font-medium text-[var(--color-krem-lontar)] text-[0.833vw] font-jakarta">{successData?.artist}</span>
               </div>
               {successData?.genre && (
                 <div className="flex justify-between">
-                  <span className="text-white-darker text-[0.833vw] font-jakarta">Genre:</span>
-                  <span className="font-medium text-white text-[0.833vw] font-jakarta">{successData?.genre}</span>
+                  <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Genre:</span>
+                  <span className="font-medium text-[var(--color-krem-lontar)] text-[0.833vw] font-jakarta">{successData?.genre}</span>
                 </div>
               )}
             </div>
@@ -356,7 +375,7 @@ export default function CreateUploadForm() {
 
           {successData?.audioUrl && (
             <div>
-              <p className="text-[0.833vw] text-white-darker font-jakarta mb-[0.556vw]">Preview:</p>
+              <p className="text-[0.833vw] text-[var(--color-emas-nusantara)] font-jakarta mb-[0.556vw]">Preview:</p>
               <audio
                 controls
                 src={successData.audioUrl}

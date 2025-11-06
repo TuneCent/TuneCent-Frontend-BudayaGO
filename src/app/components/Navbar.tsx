@@ -27,10 +27,10 @@ const Navbar = () => {
           />
           <div className="flex flex-col gap-[0.222vw] text-white">
             <p className="font-jakarta font-bold text-[1.111vw] text-white">
-              TuneCent
+              TuneCent Indonesia
             </p>
-            <p className="font-jakarta text-[0.889vw] text-white">
-              Own your sound
+            <p className="font-jakarta text-[0.889vw] text-[var(--color-emas-nusantara)]">
+              Miliki Suara Anda
             </p>
           </div>
         </div>
@@ -51,27 +51,27 @@ const Navbar = () => {
         {ready && !authenticated ? (
           <button
             onClick={login}
-            className="px-[1.5vw] py-[0.5vw] bg-gradient-to-r from-[#8B609B] to-[#302135] rounded-[0.5vw] text-white font-jakarta font-medium text-[0.889vw] hover:opacity-80 transition-opacity"
+            className="btn-primary-nusantara px-[1.5vw] py-[0.5vw] text-[0.889vw]"
           >
-            Connect Wallet
+            Hubungkan Dompet
           </button>
         ) : ready && authenticated ? (
           <div className="flex flex-row items-center gap-[0.833vw]">
             {wallet && (
-              <div className="px-[1vw] py-[0.5vw] bg-gradient-to-r from-[#8B609B]/20 to-[#302135]/20 rounded-[0.5vw] text-white font-jakarta text-[0.778vw]">
+              <div className="px-[1vw] py-[0.5vw] bg-gradient-to-r from-[var(--color-emas-nusantara)]/20 to-[var(--color-oranye-terracotta)]/20 rounded-[0.5vw] text-[var(--color-emas-nusantara)] font-jakarta text-[0.778vw] border border-[var(--color-emas-nusantara)]/30">
                 {formatAddress(wallet.address)}
               </div>
             )}
             <button
               onClick={logout}
-              className="px-[1.5vw] py-[0.5vw] border border-white/20 rounded-[0.5vw] text-white font-jakarta font-medium text-[0.889vw] hover:bg-white/10 transition-colors"
+              className="px-[1.5vw] py-[0.5vw] border-2 border-[var(--color-coklat-jati)] rounded-[0.5vw] text-white font-jakarta font-medium text-[0.889vw] hover:bg-[var(--color-coklat-jati)] transition-colors"
             >
-              Disconnect
+              Putuskan
             </button>
           </div>
         ) : (
-          <div className="px-[1.5vw] py-[0.5vw] bg-gradient-to-r from-[#8B609B]/20 to-[#302135]/20 rounded-[0.5vw] text-white/50 font-jakarta text-[0.889vw]">
-            Loading...
+          <div className="px-[1.5vw] py-[0.5vw] bg-gradient-to-r from-[var(--color-emas-nusantara)]/20 to-[var(--color-oranye-terracotta)]/20 rounded-[0.5vw] text-white/50 font-jakarta text-[0.889vw]">
+            Memuat...
           </div>
         )}
       </div>

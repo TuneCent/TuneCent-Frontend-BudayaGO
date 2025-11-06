@@ -10,7 +10,7 @@ export default function Home() {
       <Navbar />
       <main className="flex flex-col w-[75vw] gap-[5.556vw] py-[2.222vw] pt-[8.889vw] row-start-2 sm:items-start">
         <Hero />
-        <MusicPool title="Trending Songs" />
+        <MusicPool title="Lagu Trending" />
         <TopArtist />
         <div className="w-full flex flex-row justify-between">
           <Leaderboard />

@@ -1,11 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFEF7;
+  --foreground: #1A0F0F;
 }
 
 @theme inline {
+  /* =========================================
+     NUSANTARA DESIGN SYSTEM - Color Palette
+     ========================================= */
+
+  /* Primary Colors */
+  --color-merah-kebangsaan: #DC1F26;
+  --color-emas-nusantara: #D4AF37;
+  --color-coklat-jati: #6B4423;
+
+  /* Secondary Colors */
+  --color-hijau-pandan: #2D5016;
+  --color-biru-laut: #1B4B5A;
+  --color-oranye-terracotta: #D2691E;
+
+  /* Neutral Colors */
+  --color-krem-lontar: #F5E6D3;
+  --color-hitam-ebony: #1A0F0F;
+  --color-putih-kapas: #FFFEF7;
+
+  /* Legacy colors (keep for compatibility) */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-neutral-300: #CDD5DF;
@@ -22,10 +42,31 @@
   --color-primary-900: #003A53;
   --color-purple-base: #552368;
   --color-purple-lighter: #8B609B;
+
+  /* Typography */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-inter: var(--font-inter);
   --font-jakarta: var(--font-jakarta);
+
+  /* Spacing (VW-based responsive) */
+  --spacing-xs: 0.556vw;  /* ~8px at 1440px */
+  --spacing-sm: 1.111vw;  /* ~16px */
+  --spacing-md: 2.222vw;  /* ~32px */
+  --spacing-lg: 3.333vw;  /* ~48px */
+  --spacing-xl: 4.444vw;  /* ~64px */
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  /* Shadows (Nusantara inspired) */
+  --shadow-sm: 0 2px 4px rgba(107, 68, 35, 0.1);
+  --shadow-md: 0 4px 8px rgba(107, 68, 35, 0.15);
+  --shadow-lg: 0 8px 16px rgba(107, 68, 35, 0.2);
+  --shadow-xl: 0 12px 24px rgba(107, 68, 35, 0.25);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,5 +79,201 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   NUSANTARA DESIGN SYSTEM - Utility Classes
+   ========================================= */
+
+/* Background Patterns */
+.bg-batik-mega-mendung {
+  background-image: url('/assets/patterns/batik-mega-mendung.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-kawung-pattern {
+  background-image: url('/assets/patterns/kawung-pattern.svg');
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
+
+.bg-songket-pattern {
+  background-image: url('/assets/patterns/songket-pattern.svg');
+  background-size: 300px 300px;
+  background-repeat: repeat;
+}
+
+.bg-asmat-papua {
+  background-image: url('/assets/patterns/asmat-papua.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Gradient Backgrounds */
+.bg-gradient-hero {
+  background: linear-gradient(135deg, var(--color-merah-kebangsaan) 0%, var(--color-oranye-terracotta) 100%);
+}
+
+.bg-gradient-premium {
+  background: linear-gradient(135deg, var(--color-emas-nusantara) 0%, var(--color-oranye-terracotta) 100%);
+}
+
+.bg-gradient-success {
+  background: linear-gradient(135deg, var(--color-hijau-pandan) 0%, var(--color-emas-nusantara) 100%);
+}
+
+/* Nusantara Card Style */
+.nusantara-card {
+  background-color: var(--color-krem-lontar);
+  border: 1px solid rgba(107, 68, 35, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+}
+
+.nusantara-card:hover {
+  transform: translateY(-0.5rem);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Nusantara Button Styles */
+.btn-primary-nusantara {
+  background: linear-gradient(135deg, var(--color-merah-kebangsaan) 0%, var(--color-emas-nusantara) 100%);
+  color: var(--color-putih-kapas);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary-nusantara:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn-secondary-nusantara {
+  background: transparent;
+  color: var(--color-coklat-jati);
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--color-coklat-jati);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-secondary-nusantara:hover {
+  background: var(--color-coklat-jati);
+  color: var(--color-putih-kapas);
+}
+
+/* Divider with Gorga Pattern */
+.divider-gorga {
+  width: 100%;
+  height: 80px;
+  background-image: url('/assets/patterns/gorga-batak.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: var(--spacing-lg) 0;
+}
+
+/* Text Gradients */
+.text-gradient-emas {
+  background: linear-gradient(135deg, var(--color-emas-nusantara) 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-merah {
+  background: linear-gradient(135deg, var(--color-merah-kebangsaan) 0%, var(--color-oranye-terracotta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Wayang Shadow Effect */
+.shadow-wayang {
+  box-shadow:
+    0 10px 20px rgba(107, 68, 35, 0.15),
+    0 6px 6px rgba(107, 68, 35, 0.1),
+    0 0 0 1px rgba(107, 68, 35, 0.05);
+}
+
+/* Loading Animation (Angklung inspired) */
+@keyframes bamboo-sway {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.loading-angklung {
+  animation: bamboo-sway 1s ease-in-out infinite;
+}
+
+/* Smooth Transitions */
+.transition-nusantara {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Border with Ukiran (Carving) Style */
+.border-ukiran {
+  border: 2px solid var(--color-coklat-jati);
+  position: relative;
+}
+
+.border-ukiran::before,
+.border-ukiran::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-emas-nusantara);
+}
+
+.border-ukiran::before {
+  top: -2px;
+  left: -2px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.border-ukiran::after {
+  bottom: -2px;
+  right: -2px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Responsive Font Sizes (VW-based) */
+@media (min-width: 768px) {
+  .text-responsive-xl {
+    font-size: 3.5vw;
+  }
+  .text-responsive-lg {
+    font-size: 2.5vw;
+  }
+  .text-responsive-md {
+    font-size: 1.5vw;
+  }
+}
+
+@media (max-width: 767px) {
+  .text-responsive-xl {
+    font-size: 8vw;
+  }
+  .text-responsive-lg {
+    font-size: 6vw;
+  }
+  .text-responsive-md {
+    font-size: 4vw;
+  }
 }

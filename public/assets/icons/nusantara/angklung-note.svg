@@ -1,0 +1,26 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Angklung-inspired music note icon -->
+  <defs>
+    <linearGradient id="angklungGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6B4423"/>
+      <stop offset="100%" style="stop-color:#D4AF37"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Bamboo tubes (angklung style) -->
+  <rect x="8" y="6" width="2" height="12" rx="1" fill="url(#angklungGradient)"/>
+  <rect x="11" y="8" width="2" height="10" rx="1" fill="url(#angklungGradient)" opacity="0.8"/>
+  <rect x="14" y="7" width="2" height="11" rx="1" fill="url(#angklungGradient)" opacity="0.9"/>
+
+  <!-- Base frame -->
+  <path d="M 6 18 L 18 18" stroke="url(#angklungGradient)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 7 18 L 7 6" stroke="url(#angklungGradient)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 17 18 L 17 6" stroke="url(#angklungGradient)" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Top connector -->
+  <path d="M 7 6 L 17 6" stroke="url(#angklungGradient)" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Musical note accent -->
+  <circle cx="19" cy="8" r="2" fill="#DC1F26"/>
+  <path d="M 19 10 L 19 16" stroke="#DC1F26" stroke-width="1.5"/>
+</svg>

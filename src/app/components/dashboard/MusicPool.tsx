@@ -13,6 +13,7 @@ import {
   useCrowdfundingPool,
   useGetCampaignByToken,
 } from "@/app/hooks/useCrowdfundingPool";
+import { getLocalMusic } from "@/app/utils/localStorage";
 
 interface MusicPoolProps {
   title?: string;
@@ -113,14 +114,28 @@ const MusicPool = ({
     return options[Math.floor(Math.random() * options.length)];
   };
 
-  // Fetch music data from backend
+  // Fetch music data from backend and merge with localStorage
   useEffect(() => {
     const fetchMusic = async () => {
       try {
+        // Get localStorage music
+        const localMusic = getLocalMusic();
+        const transformedLocalMusic: MusicProps[] = localMusic.map((music) => ({
+          musicId: parseInt(music.id.replace('local-', '')),
+          musicTitle: music.title,
+          musicCloseHour: generateRandomCloseHour(),
+          musicArtist: music.artist,
+          musicOnClick: () => {},
+          musicUrl: music.audioFileUrl,
+          coverImageUrl: music.coverImageUrl,
+          genre: music.genre,
+        }));
+
+        // Fetch backend music
         const response = await listMusic({ limit: 5 });
 
         // Transform backend data to match MusicProps interface
-        const transformedMusic: MusicProps[] = response.data.map(
+        const transformedBackendMusic: MusicProps[] = response.data.map(
           (music: MusicData) => ({
             musicId: music.token_id,
             musicTitle: music.title,
@@ -133,10 +148,27 @@ const MusicPool = ({
           })
         );
 
-        setMusicList(transformedMusic);
+        // Merge: localStorage music first, then backend music
+        const mergedMusic = [...transformedLocalMusic, ...transformedBackendMusic];
+        setMusicList(mergedMusic.slice(0, 5)); // Limit to 5 songs
       } catch (error) {
         console.error("Failed to fetch music:", error);
-        // Keep using dummy data if fetch fails
+        // Try to use localStorage music only
+        const localMusic = getLocalMusic();
+        if (localMusic.length > 0) {
+          const transformedLocalMusic: MusicProps[] = localMusic.map((music) => ({
+            musicId: parseInt(music.id.replace('local-', '')),
+            musicTitle: music.title,
+            musicCloseHour: generateRandomCloseHour(),
+            musicArtist: music.artist,
+            musicOnClick: () => {},
+            musicUrl: music.audioFileUrl,
+            coverImageUrl: music.coverImageUrl,
+            genre: music.genre,
+          }));
+          setMusicList(transformedLocalMusic);
+        }
+        // Keep using dummy data if both fail
       }
     };
 
@@ -224,7 +256,7 @@ const MusicPool = ({
 
   const handleCreateCampaign = (music: MusicProps) => {
     if (!isConnected) {
-      alert("Please connect your wallet to create a campaign");
+      alert("Mohon hubungkan dompet Anda untuk membuat kampanye");
       return;
     }
     setSelectedMusicForCampaign(music);
@@ -235,12 +267,12 @@ const MusicPool = ({
     <>
       <section className="flex flex-col w-[75vw] gap-[1.111vw]">
         <div className="flex flex-row justify-between items-end">
-          <p className="text-[1.667vw] text-white font-bold">{title}</p>
+          <p className="text-[1.667vw] text-[var(--color-emas-nusantara)] font-bold font-jakarta">{title}</p>
           <button
             onClick={() => {}}
-            className="cursor-pointer text-white-darker text-[0.833vw] font-jakarta"
+            className="cursor-pointer text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta hover:text-[var(--color-emas-nusantara)] transition-colors"
           >
-            Show all
+            Lihat Semua
           </button>
         </div>
         <div className="w-full flex flex-row justify-center rounded-[1.042vw] bg-neutral-400 text-white"></div>
@@ -259,11 +291,11 @@ const MusicPool = ({
               <div className="cursor-pointer flex flex-col gap-[0.556vw]">
                 <div className="flex flex-row justify-between text-start">
                   <div className="flex flex-col gap-[0.333vw]">
-                    <p className="text-white font-jakarta text-[1.111vw] font-[700]">
+                    <p className="text-[var(--color-krem-lontar)] font-jakarta text-[1.111vw] font-[700]">
                       {music.musicTitle}
                     </p>
-                    <p className="text-white font-jakarta text-[0.833vw] font-regular">
-                      Pool Closed: {formatCloseTime(music.musicCloseHour)}
+                    <p className="text-[var(--color-emas-nusantara)] font-jakarta text-[0.833vw] font-regular">
+                      Ditutup: {formatCloseTime(music.musicCloseHour)}
                     </p>
                   </div>
                   <button
@@ -271,9 +303,9 @@ const MusicPool = ({
                       setActiveSong(music);
                       setIsProfileExpanded(true);
                     }}
-                    className="cursor-pointer w-[1.667vw] aspect-[24/24] flex justify-center bg-black rounded-[1.042vw]"
+                    className="cursor-pointer w-[1.667vw] aspect-[24/24] flex justify-center bg-[var(--color-coklat-jati)] rounded-[1.042vw] hover:bg-[var(--color-emas-nusantara)] transition-colors"
                   >
-                    <RiArrowRightUpLine color="white" size={24} />
+                    <RiArrowRightUpLine color="var(--color-krem-lontar)" size={24} />
                   </button>
                 </div>
 
@@ -284,9 +316,9 @@ const MusicPool = ({
                       e.stopPropagation();
                       handleCreateCampaign(music);
                     }}
-                    className="w-full bg-purple-base text-white text-[0.833vw] font-semibold py-[0.444vw] px-[0.778vw] rounded-[0.444vw] hover:bg-purple-600 transition-colors"
+                    className="btn-primary-nusantara w-full text-white text-[0.833vw] font-semibold py-[0.444vw] px-[0.778vw] rounded-[0.444vw] transition-colors shadow-wayang"
                   >
-                    Create Pool Funding
+                    Buat Pool Pendanaan
                   </button>
                 )}
               </div>
@@ -324,44 +356,44 @@ const MusicPool = ({
 
       {/* Tampilkan bar lagu di bawah layar */}
       {activeSong && (
-        <div className="fixed z-[20] bottom-0 left-0 w-full aspect-[1440/96] bg-black border-t border-neutral-700 px-[2vw] flex flex-row justify-between items-center">
+        <div className="fixed z-[20] bottom-0 left-0 w-full aspect-[1440/96] bg-[var(--color-hitam-ebony)] border-t border-[var(--color-coklat-jati)] px-[2vw] flex flex-row justify-between items-center">
           <div className="w-full flex flex-row justify-between items-center">
             <div className="w-[18.472vw] flex flex-row gap-[1.111vw] items-center">
               <div className="w-[3.75vw] aspect-[1/1] bg-neutral-black-base"></div>
               <div className="flex flex-col text-white">
-                <p className="text-[1vw] font-bold">{activeSong.musicTitle}</p>
-                <p className="text-[0.8vw] text-white-darker">
+                <p className="text-[1vw] font-bold font-jakarta text-[var(--color-krem-lontar)]">{activeSong.musicTitle}</p>
+                <p className="text-[0.8vw] text-[var(--color-emas-nusantara)] font-jakarta">
                   {activeSong.musicArtist}
                 </p>
               </div>
             </div>
             <div className="w-[55.555vw] flex flex-col items-center gap-[0.222vw]">
               <div className="flex flex-row gap-[1.111vw] w- items-center">
-                <FiSkipBack size={20} color={"#2B252D"} />
+                <FiSkipBack size={20} color={"var(--color-coklat-jati)"} />
                 {isPlaying ? (
                   <button onClick={togglePlayPause} className="cursor-pointer">
-                    <FaPauseCircle size={36} color={"#552368"} />
+                    <FaPauseCircle size={36} color={"var(--color-emas-nusantara)"} />
                   </button>
                 ) : (
                   <button onClick={togglePlayPause} className="cursor-pointer">
-                    <FaPlayCircle size={36} color={"#552368"} />
+                    <FaPlayCircle size={36} color={"var(--color-emas-nusantara)"} />
                   </button>
                 )}
-                <FiSkipForward size={20} color={"#2B252D"} />
+                <FiSkipForward size={20} color={"var(--color-coklat-jati)"} />
               </div>
               {/* Progress bar */}
 
               <div className="w-full flex flex-row items-center gap-[0.5vw]">
-                <span className="text-white text-[0.7vw]">
+                <span className="text-[var(--color-krem-lontar)] text-[0.7vw] font-jakarta">
                   {formatTime(progress)}
                 </span>
-                <div className="relative w-full h-[0.4vw] bg-neutral-700 rounded-full">
+                <div className="relative w-full h-[0.4vw] bg-[var(--color-coklat-jati)]/30 rounded-full">
                   <div
-                    className="absolute left-0 top-0 h-full bg-[#552368] rounded-full"
+                    className="absolute left-0 top-0 h-full bg-gradient-to-r from-[var(--color-merah-kebangsaan)] to-[var(--color-emas-nusantara)] rounded-full"
                     style={{ width: `${(progress / duration) * 100}%` }}
                   ></div>
                 </div>
-                <span className="text-white text-[0.7vw]">
+                <span className="text-[var(--color-krem-lontar)] text-[0.7vw] font-jakarta">
                   {formatTime(duration)}
                 </span>
               </div>

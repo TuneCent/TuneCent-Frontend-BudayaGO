@@ -1,0 +1,30 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gamelan gong icon -->
+  <defs>
+    <radialGradient id="gongGradient">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="50%" style="stop-color:#D4AF37"/>
+      <stop offset="100%" style="stop-color:#6B4423"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Gong body -->
+  <circle cx="12" cy="13" r="9" fill="url(#gongGradient)" stroke="#6B4423" stroke-width="1"/>
+
+  <!-- Inner rings (concentric) -->
+  <circle cx="12" cy="13" r="7" fill="none" stroke="#6B4423" stroke-width="0.5" opacity="0.6"/>
+  <circle cx="12" cy="13" r="5" fill="none" stroke="#6B4423" stroke-width="0.5" opacity="0.6"/>
+  <circle cx="12" cy="13" r="3" fill="none" stroke="#6B4423" stroke-width="0.5" opacity="0.6"/>
+
+  <!-- Center boss (pencu) -->
+  <circle cx="12" cy="13" r="2" fill="#D4AF37" stroke="#6B4423" stroke-width="0.5"/>
+  <circle cx="12" cy="13" r="1.2" fill="#FFD700"/>
+
+  <!-- Hanging frame (top) -->
+  <path d="M 5 5 L 12 3 L 19 5" stroke="#6B4423" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <line x1="12" y1="3" x2="12" y2="4" stroke="#6B4423" stroke-width="1.5"/>
+
+  <!-- Decorative tassels -->
+  <circle cx="5" cy="5" r="1" fill="#DC1F26"/>
+  <circle cx="19" cy="5" r="1" fill="#DC1F26"/>
+</svg>

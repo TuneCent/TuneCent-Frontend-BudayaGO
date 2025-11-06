@@ -1,0 +1,60 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="songketGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#FFD700;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#D4AF37;stop-opacity:1" />
+    </linearGradient>
+
+    <pattern id="songketWeave" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
+      <g opacity="0.12">
+        <!-- Vertical threads -->
+        <line x1="5" y1="0" x2="5" y2="30" stroke="url(#songketGold)" stroke-width="0.5"/>
+        <line x1="10" y1="0" x2="10" y2="30" stroke="url(#songketGold)" stroke-width="0.5"/>
+        <line x1="15" y1="0" x2="15" y2="30" stroke="url(#songketGold)" stroke-width="0.8"/>
+        <line x1="20" y1="0" x2="20" y2="30" stroke="url(#songketGold)" stroke-width="0.5"/>
+        <line x1="25" y1="0" x2="25" y2="30" stroke="url(#songketGold)" stroke-width="0.5"/>
+
+        <!-- Horizontal threads -->
+        <line x1="0" y1="5" x2="30" y2="5" stroke="url(#songketGold)" stroke-width="0.5"/>
+        <line x1="0" y1="10" x2="30" y2="10" stroke="url(#songketGold)" stroke-width="0.5"/>
+        <line x1="0" y1="15" x2="30" y2="15" stroke="url(#songketGold)" stroke-width="0.8"/>
+        <line x1="0" y1="20" x2="30" y2="20" stroke="url(#songketGold)" stroke-width="0.5"/>
+        <line x1="0" y1="25" x2="30" y2="25" stroke="url(#songketGold)" stroke-width="0.5"/>
+
+        <!-- Decorative intersections -->
+        <circle cx="15" cy="15" r="1.5" fill="#D4AF37" opacity="0.6"/>
+        <circle cx="0" cy="0" r="1" fill="#D4AF37" opacity="0.4"/>
+        <circle cx="30" cy="30" r="1" fill="#D4AF37" opacity="0.4"/>
+      </g>
+    </pattern>
+
+    <!-- Songket floral motif -->
+    <g id="songketFlower">
+      <circle cx="0" cy="0" r="8" fill="none" stroke="url(#songketGold)" stroke-width="1.5" opacity="0.3"/>
+      <circle cx="0" cy="-6" r="3" fill="url(#songketGold)" opacity="0.25"/>
+      <circle cx="6" cy="0" r="3" fill="url(#songketGold)" opacity="0.25"/>
+      <circle cx="0" cy="6" r="3" fill="url(#songketGold)" opacity="0.25"/>
+      <circle cx="-6" cy="0" r="3" fill="url(#songketGold)" opacity="0.25"/>
+      <circle cx="0" cy="0" r="2" fill="#D4AF37" opacity="0.5"/>
+    </g>
+  </defs>
+
+  <!-- Base weave pattern -->
+  <rect width="300" height="300" fill="url(#songketWeave)"/>
+
+  <!-- Decorative flowers -->
+  <use href="#songketFlower" x="75" y="75" opacity="0.4"/>
+  <use href="#songketFlower" x="225" y="75" opacity="0.4"/>
+  <use href="#songketFlower" x="75" y="225" opacity="0.4"/>
+  <use href="#songketFlower" x="225" y="225" opacity="0.4"/>
+  <use href="#songketFlower" x="150" y="150" opacity="0.5" transform="scale(1.2)"/>
+
+  <!-- Golden accent lines -->
+  <line x1="0" y1="50" x2="300" y2="50" stroke="url(#songketGold)" stroke-width="0.5" opacity="0.2"/>
+  <line x1="0" y1="150" x2="300" y2="150" stroke="url(#songketGold)" stroke-width="1" opacity="0.3"/>
+  <line x1="0" y1="250" x2="300" y2="250" stroke="url(#songketGold)" stroke-width="0.5" opacity="0.2"/>
+  <line x1="50" y1="0" x2="50" y2="300" stroke="url(#songketGold)" stroke-width="0.5" opacity="0.2"/>
+  <line x1="150" y1="0" x2="150" y2="300" stroke="url(#songketGold)" stroke-width="1" opacity="0.3"/>
+  <line x1="250" y1="0" x2="250" y2="300" stroke="url(#songketGold)" stroke-width="0.5" opacity="0.2"/>
+</svg>

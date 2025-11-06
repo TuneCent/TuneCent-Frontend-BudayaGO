@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useCrowdfundingPool } from "@/app/hooks/useCrowdfundingPool";
 import { useAccount } from "wagmi";
 import TransactionSuccessModal from "@/app/components/common/TransactionSuccessModal";
+import { saveCampaign, generateId } from "@/app/utils/localStorage";
 
 interface CreateCampaignModalProps {
   tokenId: number;
@@ -18,7 +19,7 @@ export default function CreateCampaignModal({
   onClose,
   onSuccess,
 }: CreateCampaignModalProps) {
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
   const {
     createCampaign,
     isCreating,
@@ -43,18 +44,18 @@ export default function CreateCampaignModal({
 
   const handleSubmit = () => {
     if (!isConnected) {
-      alert("Please connect your wallet");
+      alert("Mohon hubungkan dompet Anda");
       return;
     }
 
     if (!goalAmount || parseFloat(goalAmount) <= 0) {
-      alert("Please enter a valid funding goal");
+      alert("Mohon masukkan target pendanaan yang valid");
       return;
     }
 
     const royaltyBasisPoints = Math.floor(parseFloat(royaltyPercentage) * 100);
     if (royaltyBasisPoints <= 0 || royaltyBasisPoints > 5000) {
-      alert("Royalty percentage must be between 0.01% and 50%");
+      alert("Persentase royalti harus antara 0.01% dan 50%");
       return;
     }
 
@@ -79,7 +80,29 @@ export default function CreateCampaignModal({
 
   // Watch for transaction hash - shows modal 3 seconds after user signs in wallet
   useEffect(() => {
-    if (transactionHash && poolData) {
+    if (transactionHash && poolData && address) {
+      // Save campaign to localStorage
+      const deadline = new Date();
+      deadline.setDate(deadline.getDate() + parseInt(poolData.duration));
+
+      const campaignData = {
+        id: generateId(),
+        musicTokenId: tokenId.toString(),
+        musicTitle: poolData.musicTitle,
+        goal: poolData.goalAmount,
+        royaltyPercentage: parseFloat(poolData.royaltyPercentage),
+        deadline: deadline.toISOString(),
+        currentAmount: "0",
+        backers: 0,
+        creatorAddress: address,
+        status: 'active' as const,
+        txHash: transactionHash,
+        createdAt: new Date().toISOString(),
+      };
+
+      saveCampaign(campaignData);
+      console.log('Campaign saved to localStorage:', campaignData);
+
       const timer = setTimeout(() => {
         setShowSuccessModal(true);
         onSuccess?.();
@@ -87,11 +110,11 @@ export default function CreateCampaignModal({
 
       return () => clearTimeout(timer);
     }
-  }, [transactionHash, poolData, onSuccess]);
+  }, [transactionHash, poolData, onSuccess, address, tokenId]);
 
   useEffect(() => {
     if (createError) {
-      alert(`Error creating campaign: ${createError.message}`);
+      alert(`Gagal membuat kampanye: ${createError.message}`);
     }
   }, [createError]);
 
@@ -103,28 +126,28 @@ export default function CreateCampaignModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70">
-      <div className="bg-neutral-900 border border-white rounded-[1.111vw] p-[2.222vw] w-[50vw] max-h-[80vh] overflow-y-auto">
+      <div className="bg-[var(--color-hitam-ebony)] border-2 border-[var(--color-coklat-jati)] rounded-[1.111vw] p-[2.222vw] w-[50vw] max-h-[80vh] overflow-y-auto shadow-wayang">
         <div className="flex justify-between items-center mb-[1.667vw]">
-          <h2 className="text-white text-[1.667vw] font-bold">
-            Create Funding Campaign
+          <h2 className="text-[var(--color-emas-nusantara)] text-[1.667vw] font-bold font-jakarta">
+            Buat Kampanye Pendanaan
           </h2>
           <button
             onClick={onClose}
-            className="text-white text-[1.5vw] hover:text-gray-400"
+            className="text-[var(--color-krem-lontar)] text-[1.5vw] hover:text-[var(--color-emas-nusantara)] transition-colors"
           >
             ✕
           </button>
         </div>
 
-        <p className="text-white-darker text-[0.972vw] mb-[1.111vw]">
-          Music: <span className="text-white font-semibold">{musicTitle}</span>
+        <p className="text-[var(--color-krem-lontar)]/70 text-[0.972vw] mb-[1.111vw] font-jakarta">
+          Musik: <span className="text-[var(--color-krem-lontar)] font-semibold">{musicTitle}</span>
         </p>
 
         <div className="flex flex-col gap-[1.111vw]">
           {/* Goal Amount */}
           <div className="flex flex-col gap-[0.444vw]">
-            <label className="text-white text-[0.972vw] font-medium">
-              Funding Goal (ETH)
+            <label className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+              Target Pendanaan (ETH)
             </label>
             <input
               type="number"
@@ -132,14 +155,14 @@ export default function CreateCampaignModal({
               value={goalAmount}
               onChange={(e) => setGoalAmount(e.target.value)}
               placeholder="0.1"
-              className="w-full text-white bg-black border border-white rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none"
+              className="w-full text-[var(--color-krem-lontar)] bg-black border border-[var(--color-coklat-jati)] rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none focus:border-[var(--color-emas-nusantara)] transition-colors font-jakarta"
             />
           </div>
 
           {/* Royalty Percentage */}
           <div className="flex flex-col gap-[0.444vw]">
-            <label className="text-white text-[0.972vw] font-medium">
-              Royalty Share for Backers (%)
+            <label className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+              Bagian Royalti untuk Pendukung (%)
             </label>
             <input
               type="number"
@@ -149,17 +172,17 @@ export default function CreateCampaignModal({
               value={royaltyPercentage}
               onChange={(e) => setRoyaltyPercentage(e.target.value)}
               placeholder="25"
-              className="w-full text-white bg-black border border-white rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none"
+              className="w-full text-[var(--color-krem-lontar)] bg-black border border-[var(--color-coklat-jati)] rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none focus:border-[var(--color-emas-nusantara)] transition-colors font-jakarta"
             />
-            <p className="text-white-darker text-[0.833vw]">
-              Backers will receive {royaltyPercentage}% of future royalties
+            <p className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">
+              Pendukung akan menerima {royaltyPercentage}% dari royalti masa depan
             </p>
           </div>
 
           {/* Campaign Duration */}
           <div className="flex flex-col gap-[0.444vw]">
-            <label className="text-white text-[0.972vw] font-medium">
-              Campaign Duration (Days)
+            <label className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+              Durasi Kampanye (Hari)
             </label>
             <input
               type="number"
@@ -168,14 +191,14 @@ export default function CreateCampaignModal({
               value={durationInDays}
               onChange={(e) => setDurationInDays(e.target.value)}
               placeholder="30"
-              className="w-full text-white bg-black border border-white rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none"
+              className="w-full text-[var(--color-krem-lontar)] bg-black border border-[var(--color-coklat-jati)] rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none focus:border-[var(--color-emas-nusantara)] transition-colors font-jakarta"
             />
           </div>
 
           {/* Lockup Period */}
           <div className="flex flex-col gap-[0.444vw]">
-            <label className="text-white text-[0.972vw] font-medium">
-              Lockup Period (Days)
+            <label className="text-[var(--color-emas-nusantara)] text-[0.972vw] font-medium font-jakarta">
+              Periode Penguncian (Hari)
             </label>
             <input
               type="number"
@@ -183,10 +206,10 @@ export default function CreateCampaignModal({
               value={lockupPeriodInDays}
               onChange={(e) => setLockupPeriodInDays(e.target.value)}
               placeholder="90"
-              className="w-full text-white bg-black border border-white rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none"
+              className="w-full text-[var(--color-krem-lontar)] bg-black border border-[var(--color-coklat-jati)] rounded-[0.556vw] p-[0.778vw] text-[1.111vw] outline-none focus:border-[var(--color-emas-nusantara)] transition-colors font-jakarta"
             />
-            <p className="text-white-darker text-[0.833vw]">
-              Period during which backers cannot withdraw their shares
+            <p className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">
+              Periode di mana pendukung tidak dapat menarik bagian mereka
             </p>
           </div>
 
@@ -195,21 +218,21 @@ export default function CreateCampaignModal({
             <button
               onClick={handleSubmit}
               disabled={isCreating || isConfirming || !isConnected}
-              className="flex-1 bg-purple-base text-white rounded-[0.556vw] p-[0.778vw] text-[0.972vw] font-semibold hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary-nusantara flex-1 text-white rounded-[0.556vw] p-[0.778vw] text-[0.972vw] font-semibold font-jakarta disabled:opacity-50 disabled:cursor-not-allowed shadow-wayang"
             >
-              {isCreating || isConfirming ? "Creating..." : "Create Campaign"}
+              {isCreating || isConfirming ? "Membuat..." : "Buat Kampanye"}
             </button>
             <button
               onClick={onClose}
-              className="flex-1 bg-neutral-700 text-white rounded-[0.556vw] p-[0.778vw] text-[0.972vw] font-semibold hover:bg-neutral-600"
+              className="flex-1 bg-[var(--color-coklat-jati)] text-[var(--color-krem-lontar)] rounded-[0.556vw] p-[0.778vw] text-[0.972vw] font-semibold font-jakarta hover:bg-[var(--color-coklat-jati)]/80 transition-colors"
             >
-              Cancel
+              Batal
             </button>
           </div>
 
           {transactionHash && (
-            <p className="text-white-darker text-[0.833vw] text-center">
-              Transaction: {transactionHash}
+            <p className="text-[var(--color-emas-nusantara)] text-[0.833vw] text-center font-jakarta">
+              Transaksi: {transactionHash}
             </p>
           )}
         </div>
@@ -219,47 +242,47 @@ export default function CreateCampaignModal({
         isOpen={showSuccessModal}
         onClose={handleCloseSuccessModal}
         transactionHash={transactionHash}
-        title="Pool Created Successfully!"
+        title="Pool Berhasil Dibuat!"
       >
         <div className="space-y-[1.111vw]">
-          <div className="bg-black border border-white-darker rounded-[0.556vw] p-[1.111vw]">
-            <h3 className="font-semibold font-jakarta text-white text-[1.111vw] mb-[0.833vw]">Pool Details</h3>
+          <div className="bg-black border border-[var(--color-coklat-jati)] rounded-[0.556vw] p-[1.111vw]">
+            <h3 className="font-semibold font-jakarta text-[var(--color-emas-nusantara)] text-[1.111vw] mb-[0.833vw]">Detail Pool</h3>
             <div className="space-y-[0.556vw]">
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Music:</span>
-                <span className="font-medium text-white text-[0.833vw] font-jakarta">{poolData?.musicTitle}</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Musik:</span>
+                <span className="font-medium text-[var(--color-krem-lontar)] text-[0.833vw] font-jakarta">{poolData?.musicTitle}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Funding Goal:</span>
-                <span className="font-bold text-white text-[0.833vw] font-jakarta">{poolData?.goalAmount} ETH</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Target Pendanaan:</span>
+                <span className="font-bold text-[var(--color-emas-nusantara)] text-[0.833vw] font-jakarta">{poolData?.goalAmount} ETH</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Royalty Share:</span>
-                <span className="font-medium text-green-400 text-[0.833vw] font-jakarta">{poolData?.royaltyPercentage}%</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Bagian Royalti:</span>
+                <span className="font-medium text-[var(--color-hijau-pandan)] text-[0.833vw] font-jakarta">{poolData?.royaltyPercentage}%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Duration:</span>
-                <span className="font-medium text-white text-[0.833vw] font-jakarta">{poolData?.duration} days</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Durasi:</span>
+                <span className="font-medium text-[var(--color-krem-lontar)] text-[0.833vw] font-jakarta">{poolData?.duration} hari</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-white-darker text-[0.833vw] font-jakarta">Lockup Period:</span>
-                <span className="font-medium text-white text-[0.833vw] font-jakarta">{poolData?.lockupPeriod} days</span>
+                <span className="text-[var(--color-krem-lontar)]/70 text-[0.833vw] font-jakarta">Periode Penguncian:</span>
+                <span className="font-medium text-[var(--color-krem-lontar)] text-[0.833vw] font-jakarta">{poolData?.lockupPeriod} hari</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-green-500 bg-opacity-20 border border-green-400 rounded-[0.556vw] p-[1.111vw]">
-            <p className="text-[0.833vw] text-white font-jakarta">
-              Your crowdfunding pool has been created! Investors can now contribute to your music campaign. You will receive funds once the goal is reached.
+          <div className="bg-[var(--color-hijau-pandan)] bg-opacity-20 border border-[var(--color-hijau-pandan)] rounded-[0.556vw] p-[1.111vw]">
+            <p className="text-[0.833vw] text-[var(--color-krem-lontar)] font-jakarta">
+              Pool crowdfunding Anda telah dibuat! Investor sekarang dapat berkontribusi pada kampanye musik Anda. Anda akan menerima dana setelah target tercapai.
             </p>
           </div>
 
-          <div className="bg-purple-base bg-opacity-20 border border-purple-lighter rounded-[0.556vw] p-[1.111vw]">
-            <h4 className="font-semibold font-jakarta text-white text-[0.972vw] mb-[0.556vw]">Next Steps:</h4>
-            <ul className="text-[0.833vw] text-white-darker font-jakarta list-disc list-inside space-y-[0.278vw]">
-              <li>Share your campaign with potential investors</li>
-              <li>Monitor your funding progress in the dashboard</li>
-              <li>Withdraw funds after reaching your goal</li>
+          <div className="bg-[var(--color-merah-kebangsaan)] bg-opacity-20 border border-[var(--color-emas-nusantara)] rounded-[0.556vw] p-[1.111vw]">
+            <h4 className="font-semibold font-jakarta text-[var(--color-emas-nusantara)] text-[0.972vw] mb-[0.556vw]">Langkah Selanjutnya:</h4>
+            <ul className="text-[0.833vw] text-[var(--color-krem-lontar)] font-jakarta list-disc list-inside space-y-[0.278vw]">
+              <li>Bagikan kampanye Anda kepada investor potensial</li>
+              <li>Pantau progress pendanaan di dashboard</li>
+              <li>Tarik dana setelah mencapai target</li>
             </ul>
           </div>
         </div>

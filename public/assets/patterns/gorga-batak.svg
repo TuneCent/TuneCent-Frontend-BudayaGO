@@ -1,0 +1,77 @@
+<svg width="1000" height="80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gorgaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6B4423;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6B4423;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Gorga Batak - Traditional Batak carving pattern as divider -->
+  <g opacity="0.8">
+    <!-- Base line -->
+    <line x1="0" y1="40" x2="1000" y2="40" stroke="url(#gorgaGradient)" stroke-width="2"/>
+
+    <!-- Repeating decorative motifs -->
+    <!-- Motif 1 -->
+    <path d="M 50 40 Q 60 25, 70 40 Q 60 55, 50 40"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="60" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 2 -->
+    <path d="M 150 40 L 160 25 L 170 40 L 160 55 Z"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="160" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 3 -->
+    <path d="M 250 40 Q 260 25, 270 40 Q 260 55, 250 40"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="260" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 4 -->
+    <path d="M 350 40 L 360 25 L 370 40 L 360 55 Z"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="360" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 5 -->
+    <path d="M 450 40 Q 460 25, 470 40 Q 460 55, 450 40"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="460" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 6 -->
+    <path d="M 550 40 L 560 25 L 570 40 L 560 55 Z"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="560" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 7 -->
+    <path d="M 650 40 Q 660 25, 670 40 Q 660 55, 650 40"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="660" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 8 -->
+    <path d="M 750 40 L 760 25 L 770 40 L 760 55 Z"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="760" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 9 -->
+    <path d="M 850 40 Q 860 25, 870 40 Q 860 55, 850 40"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="860" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Motif 10 -->
+    <path d="M 950 40 L 960 25 L 970 40 L 960 55 Z"
+          fill="url(#gorgaGradient)" stroke="url(#gorgaGradient)" stroke-width="1"/>
+    <circle cx="960" cy="40" r="3" fill="#D4AF37"/>
+
+    <!-- Connecting ornaments -->
+    <circle cx="100" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="200" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="300" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="400" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="500" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="600" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="700" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="800" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+    <circle cx="900" cy="40" r="4" fill="#6B4423" opacity="0.5"/>
+  </g>
+</svg>

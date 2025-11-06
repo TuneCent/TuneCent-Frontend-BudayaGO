@@ -110,25 +110,25 @@ const InvestPage = () => {
   return (
     <section className="w-[75vw] flex flex-col bg-black gap-[1.667vw]">
       <div className="w-full flex flex-row justify-between">
-        <p className="font-jakarta font-bold text-white text-[1.667vw]">
-          Always Support Your Artist
+        <p className="font-jakarta font-bold text-[var(--color-emas-nusantara)] text-[1.667vw]">
+          Selalu Dukung Artis Anda
         </p>
       </div>
       <ContributorPath {...contributorPathData} />
       <div className="flex flex-col w-full p-[1.111vw] gap-[0.667vw]">
-        <p className="font-jakarta font-bold text-white text-[1.389vw]">
-          Special Offer for you
+        <p className="font-jakarta font-bold text-[var(--color-emas-nusantara)] text-[1.389vw]">
+          Penawaran Spesial untuk Anda
         </p>
 
         {isLoading ? (
-          <p className="text-white text-center py-[2vw]">Loading campaigns...</p>
+          <p className="text-[var(--color-krem-lontar)] font-jakarta text-center py-[2vw]">Memuat kampanye...</p>
         ) : campaigns.length > 0 ? (
           campaigns.map((campaign) => <InvestCard key={campaign.campaignId} {...campaign} />)
         ) : (
           <div className="text-center py-[2vw]">
-            <p className="text-white text-[1.111vw]">No active campaigns available</p>
-            <p className="text-white-darker text-[0.833vw] mt-[0.556vw]">
-              Check back later for new investment opportunities
+            <p className="text-[var(--color-krem-lontar)] font-jakarta text-[1.111vw]">Tidak ada kampanye aktif saat ini</p>
+            <p className="text-[var(--color-krem-lontar)]/70 font-jakarta text-[0.833vw] mt-[0.556vw]">
+              Periksa kembali nanti untuk peluang investasi baru
             </p>
           </div>
         )}
