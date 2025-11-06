@@ -14,6 +14,11 @@ import {
   RiLineChartLine,
   RiSettings3Line,
   RiLogoutBoxRLine,
+  RiGroupLine,
+  RiVipCrownLine,
+  RiShoppingBag3Line,
+  RiCalendarEventLine,
+  RiBookOpenLine,
 } from "react-icons/ri";
 
 interface SideBarProps {
@@ -40,8 +45,13 @@ const SideBarMenuUser: SideBarMenuProps[] = [
   { id: 1, menu: "Home", icon: RiHome5Line, link: "home" },
   { id: 2, menu: "Search", icon: RiSearchLine, link: "search" },
   { id: 3, menu: "Invest", icon: RiLineChartLine, link: "invest" },
-  { id: 4, menu: "Settings", icon: RiSettings3Line, link: "settings" },
-  { id: 5, menu: "Sign Out", icon: RiLogoutBoxRLine, link: "" },
+  { id: 4, menu: "Community", icon: RiGroupLine, link: "community" },
+  { id: 5, menu: "Subscription", icon: RiVipCrownLine, link: "subscription" },
+  { id: 6, menu: "Marketplace", icon: RiShoppingBag3Line, link: "marketplace" },
+  { id: 7, menu: "Events", icon: RiCalendarEventLine, link: "events" },
+  { id: 8, menu: "Stories", icon: RiBookOpenLine, link: "stories" },
+  { id: 9, menu: "Settings", icon: RiSettings3Line, link: "settings" },
+  { id: 10, menu: "Sign Out", icon: RiLogoutBoxRLine, link: "" },
 ];
 
 const SideBar = ({ variant = "musician", isOpen, onToggle }: SideBarProps) => {
@@ -55,6 +65,7 @@ const SideBar = ({ variant = "musician", isOpen, onToggle }: SideBarProps) => {
     if (variant === "musician") router.push(`/musician/${link.toLowerCase()}`);
     else {
       if (menu === "Sign Out") router.push("/");
+      else if (menu === "Stories") router.push("/stories");
       else router.push(`/user/${link.toLowerCase()}`);
     }
   };
