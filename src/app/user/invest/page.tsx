@@ -4,7 +4,15 @@ import { useState, useEffect } from "react";
 import { usePrivy } from '@privy-io/react-auth';
 import ContributorPath, { ContributorPathProps } from "@/app/components/user/ContributorPath";
 import InvestCard, { InvestCardProps } from "@/app/components/user/InvestCard";
-import { getActiveCampaigns, getUserProgressById, updateUserProgress } from "@/app/utils/localStorage";
+import {
+  getActiveCampaigns,
+  getUserProgressById,
+  saveInvestment,
+  generateId,
+  getCampaignById,
+  getMusicById,
+  updateUserProgress,
+} from "@/app/utils/localStorage";
 
 // Mock campaigns for demo purposes
 const mockCampaigns: InvestCardProps[] = [
@@ -74,6 +82,9 @@ const InvestPage = () => {
 
         // Transform localStorage campaigns to InvestCardProps
         const transformedCampaigns: InvestCardProps[] = activeCampaigns.map((campaign) => {
+          // Fetch music data to get cover image and other details
+          const music = getMusicById(campaign.musicTokenId);
+
           const goal = parseFloat(campaign.goal);
           const raised = parseFloat(campaign.currentAmount);
           const fundedPercentage = goal > 0 ? Math.min((raised / goal) * 100, 100) : 0;
@@ -105,14 +116,14 @@ const InvestPage = () => {
           return {
             campaignId: campaign.id,
             musicTitle: campaign.musicTitle,
-            musicArtist: "Creator", // You can enhance this by joining with music data
-            coverImageUrl: undefined,
+            musicArtist: music?.artist || "Creator",
+            coverImageUrl: music?.coverImageUrl || undefined,
             fundedPercentage: Math.round(fundedPercentage),
             riskLevel,
             investorCount: campaign.backers,
             timeRemaining,
             targetListeners: Math.round(goal * 10), // Estimate based on funding goal
-            genre: "Various",
+            genre: music?.genre || "Various",
             goalAmount: goal,
             raisedAmount: raised,
             royaltyPercentage: campaign.royaltyPercentage,
