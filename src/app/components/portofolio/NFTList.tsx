@@ -13,14 +13,14 @@ const NFTData: NFTProps[] = [
   {
     id: 1,
     activePools: true,
-    NFTName: "Mejikuhibiniu",
+    NFTName: "Gundul Pacul",
     status: "Minted",
     chronosLockActive: true,
   },
   {
     id: 2,
     activePools: true,
-    NFTName: "Alamak",
+    NFTName: "Bubuy Bulan",
     status: "Minted",
     chronosLockActive: true,
   },

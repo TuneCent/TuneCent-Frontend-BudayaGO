@@ -66,19 +66,19 @@ const LeaderboardArtistArray: LeaderboardArrayProps[] = [
 const LeaderboardMusicArray: LeaderboardArrayProps[] = [
   {
     rank: 1,
-    artist: "Mejikuhibiniu",
+    artist: "Rasa Sayange",
     score: "9.812",
     isTopProfile: true,
   },
   {
     rank: 2,
-    artist: "Rasakan Nikmatnya Hidup",
+    artist: "Gundul Pacul",
     score: "9.700",
     isTopProfile: false,
   },
   {
     rank: 3,
-    artist: "Pikiran Yang Matang",
+    artist: "Bubuy Bulan",
     score: "9.650",
     isTopProfile: false,
   },

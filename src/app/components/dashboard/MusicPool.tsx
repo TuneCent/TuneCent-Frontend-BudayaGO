@@ -36,7 +36,7 @@ const DummyMusic: MusicProps[] = [
     musicId: 1,
     musicTitle: "Bengawan Solo",
     musicCloseHour: 48,
-    musicArtist: "Gesang Martohartono",
+    musicArtist: "Gesang",
     musicOnClick: () => {},
     musicUrl: "/assets/songs/bengawan-solo.mp3",
     coverImageUrl:
@@ -47,7 +47,7 @@ const DummyMusic: MusicProps[] = [
     musicId: 2,
     musicTitle: "Burung Kakak Tua",
     musicCloseHour: 12,
-    musicArtist: "Traditional",
+    musicArtist: "Irma",
     musicOnClick: () => {},
     musicUrl: "/assets/songs/burung-kakak-tua.mp3",
     coverImageUrl:
@@ -58,7 +58,7 @@ const DummyMusic: MusicProps[] = [
     musicId: 3,
     musicTitle: "Bubuy Bulan",
     musicCloseHour: 24,
-    musicArtist: "Traditional Sunda",
+    musicArtist: "Daffa",
     musicOnClick: () => {},
     musicUrl: "/assets/songs/bubuy-bulan.mp3",
     coverImageUrl:
@@ -69,7 +69,7 @@ const DummyMusic: MusicProps[] = [
     musicId: 4,
     musicTitle: "Rasa Sayange",
     musicCloseHour: 48,
-    musicArtist: "Traditional Maluku",
+    musicArtist: "Ifan Su'ady",
     musicOnClick: () => {},
     musicUrl: "/assets/songs/rasa-sayange.mp3",
     coverImageUrl:
@@ -80,7 +80,7 @@ const DummyMusic: MusicProps[] = [
     musicId: 5,
     musicTitle: "Gundul-Gundul Pacul",
     musicCloseHour: 18,
-    musicArtist: "Traditional Jawa",
+    musicArtist: "Nadhira Rafa",
     musicOnClick: () => {},
     musicUrl: "/assets/songs/gundul-pacul.mp3",
     coverImageUrl:

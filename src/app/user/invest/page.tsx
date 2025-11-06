@@ -18,9 +18,9 @@ import {
 const mockCampaigns: InvestCardProps[] = [
   {
     campaignId: "mock-1",
-    musicTitle: "Mejikuhibiniu",
-    musicArtist: "Tenxi",
-    coverImageUrl: "https://i.scdn.co/image/ab67616d00001e024d265eb3c717ab45470fdc8c",
+    musicTitle: "Bengawan Solo",
+    musicArtist: "Gesang",
+    coverImageUrl: "https://i.scdn.co/image/ab67616d0000485185148e590c8f173ca04bfc7f",
     fundedPercentage: 75,
     riskLevel: "Low Risk",
     investorCount: 45,
@@ -33,9 +33,9 @@ const mockCampaigns: InvestCardProps[] = [
   },
   {
     campaignId: "mock-2",
-    musicTitle: "Pikiran yang matang",
-    musicArtist: "Perunggu",
-    coverImageUrl: "https://i.scdn.co/image/ab67616d00001e0292aaadd0be503d89c082ecbb",
+    musicTitle: "Burung Kakak Tua",
+    musicArtist: "Irma",
+    coverImageUrl: "https://i.scdn.co/image/ab67616d000048517efee05b1c9fe304c1a68ee8",
     fundedPercentage: 62,
     riskLevel: "Medium Risk",
     investorCount: 32,
@@ -48,9 +48,9 @@ const mockCampaigns: InvestCardProps[] = [
   },
   {
     campaignId: "mock-3",
-    musicTitle: "Alamak",
-    musicArtist: "Rizky Febian, Adrian Khalif",
-    coverImageUrl: "https://i.scdn.co/image/ab67616d00001e0201b9750a33d771645d7f043a",
+    musicTitle: "Bubuy Bulan",
+    musicArtist: "Daffa",
+    coverImageUrl: "https://i.scdn.co/image/ab67616d000048517ebfa3047135a0443d2cab92",
     fundedPercentage: 88,
     riskLevel: "Low Risk",
     investorCount: 67,

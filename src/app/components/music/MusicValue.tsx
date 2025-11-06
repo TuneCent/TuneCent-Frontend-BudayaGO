@@ -7,7 +7,7 @@ interface MusicValueProps {
 }
 
 const MusicValue = ({
-  title = "mejikuhibiniu",
+  title = "Gundul Pacul",
   listenersCount = "15,000",
 }: MusicValueProps) => {
   return (
